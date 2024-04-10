@@ -12,6 +12,7 @@ import jakarta.persistence.Table;
 public class Usuario {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_USUARIO")
 	private String id;
 	@Column(name = "NM_NOME")
