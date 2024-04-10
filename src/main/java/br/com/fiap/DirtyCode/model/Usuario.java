@@ -1,4 +1,4 @@
-package br.com.fiap.DirtyCode.model.entity;
+package br.com.fiap.DirtyCode.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,9 +10,10 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "T_USUARIO")
 public class Usuario {
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@Column(name = "ID_USUARIO")
+	private String id;
 	@Column(name = "NM_NOME")
 	private String nome;
 	@Column(name = "DS_EMAIL")
@@ -22,20 +23,22 @@ public class Usuario {
 	@Column(name = "DS_SENHA")
 	private String senha;
 
-	public Usuario(String nome, String email, String cpf, String senha) {
+	public Usuario(String id,String nome, String email, String cpf, String senha) {
+		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.cpf = cpf;
 		this.senha = senha;
 	}
 
-	public Usuario() {}
+	public Usuario() {
+	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -70,7 +73,5 @@ public class Usuario {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
-	
-	
+
 }
