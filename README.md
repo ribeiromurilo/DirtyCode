@@ -60,7 +60,9 @@ git clone https://github.com/matheusCMSampaio/DirtyCode.git
 <div>
     <img src="./Diagrama/Diagrama de Java.png" alt="Diagrama de classes" height="400px"/>
 </div>
-
+<div>
+    <img src="./Diagrama/Diagrama de BD.jpg" alt="Diagrama de classes" height="400px"/>
+</div>
 <br/>
 
 
