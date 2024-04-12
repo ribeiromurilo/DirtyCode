@@ -1,14 +1,13 @@
 package br.com.fiap.DirtyCode.controller;
 
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.NO_CONTENT;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
+
 
 import br.com.fiap.DirtyCode.model.Usuario;
 import br.com.fiap.DirtyCode.repository.UsuarioRepository;
@@ -17,38 +16,39 @@ import br.com.fiap.DirtyCode.repository.UsuarioRepository;
 @RequestMapping(value = "/user")
 public class UsuarioResource {
 
-	@Autowired
-	UsuarioRepository repository;
+    @Autowired
+    UsuarioRepository repository;
 
-	@PostMapping
-	@ResponseStatus(CREATED)
-	public Usuario save(@RequestBody Usuario usuario) {
+    @PostMapping
+    public ResponseEntity<String> save(@RequestBody Usuario usuario) {
+        Usuario save = repository.save(usuario);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Usuário cadastrado com sucesso!");
+    }
 
-		return repository.save(usuario);
-	}
+    @GetMapping
+    public List<Usuario> findAll() {
+        return repository.findAll();
+    }
 
-	@GetMapping
-	public List<Usuario> findAll() {
-		return repository.findAll();
-	}
+    @GetMapping("{id}")
+    public ResponseEntity<Usuario> show(@PathVariable Long id){
 
-	@GetMapping("{id}")
-	@PostMapping
-	public ResponseEntity<Usuario> findById(@PathVariable Long id) {
-		return repository.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
-	}
+        return repository
+                .findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 
-	@DeleteMapping("{id}")
-	@ResponseStatus(NO_CONTENT)
-	public void destroy(@PathVariable Long id) {
-		repository.deleteById(id);
-	}
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        repository.deleteById(id);
+        return ResponseEntity.status(HttpStatus.OK).body("Usuário deletado com sucesso.");
+    }
 
-	@PutMapping("{id}")
-	public Usuario update(@PathVariable Long id, @RequestBody Usuario usuario) {
-
-		usuario.setId(id);
-		return repository.save(usuario);
-	}
+    @PutMapping("{id}")
+    public Usuario update(@PathVariable Long id, @RequestBody Usuario usuario) {
+        usuario.setId(id);
+        return repository.save(usuario);
+    }
 
 }
