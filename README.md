@@ -44,8 +44,7 @@ git clone https://github.com/matheusCMSampaio/DirtyCode.git
 ## 🖥 Tecnologias
 
 - [Spring](https://spring.io)
-- [Docker](https://www.docker.com/)
-- [Figma](https://www.figma.com/file/d5rDjubNjdvIn1madq8DZd/Challenge?type=design&node-id=0%3A1&mode=design&t=9i6UZdLvgFCGnHWx-1)
+- [SQLDeveloper](https://www.oracle.com/br/database/sqldeveloper/)
 
 <br/>
 
