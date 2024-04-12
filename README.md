@@ -63,45 +63,8 @@ git clone https://github.com/matheusCMSampaio/DirtyCode.git
 
 <br/>
 
-## 📃 Documentação da API
-
-### Endpoints 
-
-- [Autentificação de Usuário](#autentificação-de-usuário)
-- [Registro de Usuário](#registro-de-usuário)
-- [Obtenção de Usuário](#obtenção-de-usuário)
-- [Alteração de Usuário](#alteração-de-usuário)
-- [Deletar Usuário](#deletar-usuário)
 
 ## 📃 Documentação da API - Usuários
-
-### 💠 Autenticação de Usuário
-
-`POST` /user
-
-Registro de usuário
-
-#### Requisição
-
-```js
-{
-	"nome": "name",
-	"email": "name@gmail.com",
-	"cpf": "11111111111",
-	"senha": "12345678",
-	"telefone":"5511911111111"
-}
-```
-
-#### Resposta - sucesso
-
-```js
-
-Usuário cadastrado com sucesso!
-
-```
-
-<hr/>
 
 ### 💠 Registro de Usuário
 
