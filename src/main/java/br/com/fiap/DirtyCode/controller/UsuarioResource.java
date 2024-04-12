@@ -2,6 +2,7 @@ package br.com.fiap.DirtyCode.controller;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,24 +32,35 @@ public class UsuarioResource {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Usuario> show(@PathVariable Long id){
-
-        return repository
-                .findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<?> findById(@PathVariable Long id) {
+        Optional<Usuario> usuario = repository.findById(id);
+        if (usuario.isPresent()) {
+            return ResponseEntity.ok(usuario.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado.");
+        }
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) {
-        repository.deleteById(id);
-        return ResponseEntity.status(HttpStatus.OK).body("Usuário deletado com sucesso.");
+        boolean exists = repository.existsById(id);
+        if (exists) {
+            repository.deleteById(id);
+            return ResponseEntity.status(HttpStatus.OK).body("Usuário deletado com sucesso.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado.");
+        }
     }
-
     @PutMapping("{id}")
-    public Usuario update(@PathVariable Long id, @RequestBody Usuario usuario) {
-        usuario.setId(id);
-        return repository.save(usuario);
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Usuario usuario) {
+        boolean exists = repository.existsById(id);
+        if (exists) {
+            usuario.setId(id);
+            Usuario updatedUsuario = repository.save(usuario);
+            return ResponseEntity.ok(updatedUsuario);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado.");
+        }
     }
 
 }
