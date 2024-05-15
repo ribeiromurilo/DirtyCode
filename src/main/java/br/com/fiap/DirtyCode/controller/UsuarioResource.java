@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.*;
 
 import br.com.fiap.DirtyCode.model.Usuario;
 import br.com.fiap.DirtyCode.repository.UsuarioRepository;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping(value = "/user")
+@Slf4j
 public class UsuarioResource {
 
     @Autowired
@@ -23,6 +25,7 @@ public class UsuarioResource {
     @PostMapping
     public ResponseEntity<String> save(@RequestBody Usuario usuario) {
         Usuario save = repository.save(usuario);
+        log.info("Usuario cadastrado "+ usuario);
         return ResponseEntity.status(HttpStatus.CREATED).body("Usuário cadastrado com sucesso!");
     }
 
@@ -37,7 +40,8 @@ public class UsuarioResource {
         if (usuario.isPresent()) {
             return ResponseEntity.ok(usuario.get());
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+            		.body("Usuário não encontrado.");
         }
     }
 
