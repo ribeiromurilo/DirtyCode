@@ -13,6 +13,13 @@
 - Murilo Ribeiro Valério da Silva - RM 550858(2TDSPF)
 
 --------------------------------------------------
+<h3>Funções</h3>
+- Matheus: Java, Mobile
+- Paulo: QA
+- Victor: IA
+- Aleck: .NET
+- Murilo: DevOPS, BD
+--------------------------------------------------
 <h3>Como Rodar a Aplicação </h3>
 
 <h4>Pré-requisitos</h4> 
