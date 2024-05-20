@@ -14,6 +14,7 @@
 
 --------------------------------------------------
 <h3>Funções</h3>
+
 - Matheus: Java, Mobile
 - Paulo: QA
 - Victor: IA
