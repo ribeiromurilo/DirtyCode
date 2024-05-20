@@ -33,7 +33,6 @@ public class Usuario {
     @NotBlank(message = "O email não pode estar em branco")
     @Email(message = "Digite um email válido")
     private String email;
-    @NotBlank(message = "O CPF não pode estar em branco")
     @Column(name = "NR_CPF")
     @Size(min = 11, max = 11, message = "O CPF deve ter 11 caracteres")
     private String cpf;

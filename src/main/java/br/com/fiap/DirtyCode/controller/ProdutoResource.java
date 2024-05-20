@@ -32,6 +32,7 @@ public class ProdutoResource {
 	@Autowired
 	ProdutoRepository repository;
 	
+	@GetMapping
 	public List<Produto> findAll(){
 		return repository.findAll();
 	}
