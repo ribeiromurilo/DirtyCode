@@ -66,5 +66,20 @@ public class UsuarioResource {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado.");
         }
     }
-
+    
+    @PostMapping("/usuario")
+    public ResponseEntity<?> findByEmail(@RequestBody Usuario user) {
+        String email = user.getEmail();
+        Usuario usuario = repository.findByEmail(email);
+        if (usuario != null) {
+            if(user.getSenha().equals(usuario.getSenha())) {
+            	return ResponseEntity.ok(usuario);
+            }else {
+            	return ResponseEntity.status(404).body("Email ou senha incorreto!");
+			}
+        } else {
+            return ResponseEntity.status(404).body("Usuário não encontrado");
+        }
+    }
+    
 }

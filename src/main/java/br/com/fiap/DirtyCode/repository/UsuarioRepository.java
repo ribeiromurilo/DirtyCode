@@ -6,4 +6,6 @@ import br.com.fiap.DirtyCode.model.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 
+	
+	Usuario findByEmail(String email);
 }
