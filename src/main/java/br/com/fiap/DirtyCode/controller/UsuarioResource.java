@@ -1,20 +1,19 @@
 package br.com.fiap.DirtyCode.controller;
 
-
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 
 import br.com.fiap.DirtyCode.model.Usuario;
 import br.com.fiap.DirtyCode.repository.UsuarioRepository;
 import lombok.extern.slf4j.Slf4j;
 
-@RestController
+@Controller
 @RequestMapping(value = "/user")
 @Slf4j
 public class UsuarioResource {
@@ -22,64 +21,85 @@ public class UsuarioResource {
     @Autowired
     UsuarioRepository repository;
 
-    @PostMapping
-    public ResponseEntity<String> save(@RequestBody Usuario usuario) {
-        Usuario save = repository.save(usuario);
-        log.info("Usuario cadastrado "+ usuario);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Usuário cadastrado com sucesso!");
-    }
-
+    // Página para exibir todos os usuários
     @GetMapping
-    public List<Usuario> findAll() {
-        return repository.findAll();
+    public String getAllUsersPage(Model model) {
+        List<Usuario> usuarios = repository.findAll();
+        model.addAttribute("usuarios", usuarios);
+        return "userList";  // Nome do template Thymeleaf userList.html
     }
 
+    // Página para exibir um único usuário
     @GetMapping("{id}")
-    public ResponseEntity<?> findById(@PathVariable Long id) {
+    public String findById(@PathVariable Long id, Model model) {
         Optional<Usuario> usuario = repository.findById(id);
         if (usuario.isPresent()) {
-            return ResponseEntity.ok(usuario.get());
+            model.addAttribute("usuario", usuario.get());
+            return "userDetail";  // Nome do template Thymeleaf userDetail.html
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-            		.body("Usuário não encontrado.");
+            model.addAttribute("error", "Usuário não encontrado.");
+            return "error";  // Nome do template para erro
         }
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<String> delete(@PathVariable Long id) {
+    // Formulário para cadastrar novo usuário
+    @GetMapping("/new")
+    public String showNewUserForm(Model model) {
+        model.addAttribute("usuario", new Usuario());
+        return "userForm";  // Template Thymeleaf com formulário de criação
+    }
+
+    // Salvar novo usuário
+    @PostMapping("/save")
+    public String save(@ModelAttribute Usuario usuario, Model model) {
+        try {
+            repository.save(usuario);
+            model.addAttribute("message", "Usuário cadastrado com sucesso!");
+            return "success";  // Página de sucesso
+        } catch (Exception e) {
+            model.addAttribute("error", "Erro ao cadastrar o usuário.");
+            return "error";  // Página de erro
+        }
+    }
+
+    // Página para deletar usuário
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable Long id, Model model) {
         boolean exists = repository.existsById(id);
         if (exists) {
             repository.deleteById(id);
-            return ResponseEntity.status(HttpStatus.OK).body("Usuário deletado com sucesso.");
+            model.addAttribute("message", "Usuário deletado com sucesso.");
+            return "success";  // Página de sucesso
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado.");
+            model.addAttribute("error", "Usuário não encontrado.");
+            return "error";  // Página de erro
         }
     }
-    @PutMapping("{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Usuario usuario) {
+
+    // Página para atualizar usuário
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        Optional<Usuario> usuario = repository.findById(id);
+        if (usuario.isPresent()) {
+            model.addAttribute("usuario", usuario.get());
+            return "userForm";  // Mesmo template do formulário de criação
+        } else {
+            model.addAttribute("error", "Usuário não encontrado.");
+            return "error";  // Página de erro
+        }
+    }
+
+    @PostMapping("/update/{id}")
+    public String update(@PathVariable Long id, @ModelAttribute Usuario usuario, Model model) {
         boolean exists = repository.existsById(id);
         if (exists) {
             usuario.setId(id);
-            Usuario updatedUsuario = repository.save(usuario);
-            return ResponseEntity.ok(updatedUsuario);
+            repository.save(usuario);
+            model.addAttribute("message", "Usuário atualizado com sucesso!");
+            return "success";  // Página de sucesso
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado.");
+            model.addAttribute("error", "Usuário não encontrado.");
+            return "error";  // Página de erro
         }
     }
-    
-    @PostMapping("/usuario")
-    public ResponseEntity<?> findByEmail(@RequestBody Usuario user) {
-        String email = user.getEmail();
-        Usuario usuario = repository.findByEmail(email);
-        if (usuario != null) {
-            if(user.getSenha().equals(usuario.getSenha())) {
-            	return ResponseEntity.ok(usuario);
-            }else {
-            	return ResponseEntity.status(404).body("Email ou senha incorreto!");
-			}
-        } else {
-            return ResponseEntity.status(404).body("Usuário não encontrado");
-        }
-    }
-    
 }

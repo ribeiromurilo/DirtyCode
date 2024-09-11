@@ -23,5 +23,30 @@ public class Formulario {
     private String descricao;
     @Column(name = "DS_PELE")
     private String tipoPele;
+	public Long getIdUsuario() {
+		return idUsuario;
+	}
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+	public Character getStatus() {
+		return status;
+	}
+	public void setStatus(Character status) {
+		this.status = status;
+	}
+	public String getDescricao() {
+		return descricao;
+	}
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+	public String getTipoPele() {
+		return tipoPele;
+	}
+	public void setTipoPele(String tipoPele) {
+		this.tipoPele = tipoPele;
+	}
 
+    
 }

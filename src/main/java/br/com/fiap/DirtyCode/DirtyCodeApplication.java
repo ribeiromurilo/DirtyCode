@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -17,10 +18,9 @@ public class DirtyCodeApplication {
 		SpringApplication.run(DirtyCodeApplication.class, args);
 	}
 	
-	@RequestMapping
-	@ResponseBody
+	@GetMapping("/")
 	public String home() {
-		return "Bem-vindo";
-	}
+        return "index";  
+    }
 
 }

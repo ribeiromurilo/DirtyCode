@@ -29,4 +29,42 @@ public class Avaliacao {
     private Long idProduto;
     @Column(name = "ID_USUARIO")
     private Long idUsuario;
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public Character getClassificacao() {
+		return classificacao;
+	}
+	public void setClassificacao(Character classificacao) {
+		this.classificacao = classificacao;
+	}
+	public String getComentario() {
+		return comentario;
+	}
+	public void setComentario(String comentario) {
+		this.comentario = comentario;
+	}
+	public Date getDataAvaliacao() {
+		return dataAvaliacao;
+	}
+	public void setDataAvaliacao(Date dataAvaliacao) {
+		this.dataAvaliacao = dataAvaliacao;
+	}
+	public Long getIdProduto() {
+		return idProduto;
+	}
+	public void setIdProduto(Long idProduto) {
+		this.idProduto = idProduto;
+	}
+	public Long getIdUsuario() {
+		return idUsuario;
+	}
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+    
+    
 }
