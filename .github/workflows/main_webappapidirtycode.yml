@@ -49,5 +49,5 @@ jobs:
         with:
           app-name: 'webappapidirtycode'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_DF87360486674075A991273C9AD89756 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_66453014BAE049B3AB7E54839CF727CD }}
           package: '*.jar'
