@@ -71,6 +71,7 @@
         .form-group .error {
             color: red;
             font-size: 14px;
+            display: none;
         }
     </style>
 </head>
@@ -78,7 +79,7 @@
     <header>
         <h2 th:text="${title}">Adicionar Novo Usuário</h2>
     </header>
-    <form th:action="@{/user/save}" th:object="${usuario}" method="post">
+    <form id="userForm" th:action="@{/user/save}" th:object="${usuario}" method="post">
         <h3>Detalhes do Usuário</h3>
         <div class="form-group">
             <label for="nome">Nome</label>
@@ -103,11 +104,26 @@
         <div class="form-group">
             <label for="senha">Senha</label>
             <input type="password" id="senha" th:field="*{senha}" placeholder="Digite a senha" />
-            <div class="error" th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}">Erro</div>
+            <div class="error" id="senha-error">A senha deve ter pelo menos 8 caracteres.</div>
         </div>
         <div class="form-group">
             <button type="submit">Salvar</button>
         </div>
     </form>
+
+    <script>
+        document.getElementById('userForm').addEventListener('submit', function(event) {
+            var senha = document.getElementById('senha').value;
+            var errorDiv = document.getElementById('senha-error');
+
+            
+            if (senha.length < 8) {
+                errorDiv.style.display = 'block';
+                event.preventDefault(); 
+            } else {
+                errorDiv.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>
