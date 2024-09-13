@@ -17,17 +17,17 @@ public class UsuarioResourceThymeleaf {
     @Autowired
     private UsuarioRepository user;
 
-    // Formulário para adicionar/editar usuário
+   
     @GetMapping("/new")
     public ModelAndView usuarioForm() {
-        ModelAndView modelAndView = new ModelAndView("usuario-form"); // Nome da view
+        ModelAndView modelAndView = new ModelAndView("usuario-form");
         modelAndView.addObject("usuario", new Usuario());
         modelAndView.addObject("title", "Adicionar/Editar Usuário");
         return modelAndView;
     }
 
 
-    // Salvar usuário no banco de dados
+  
     @PostMapping("/save")
     public ModelAndView saveUsuario(@ModelAttribute Usuario usuario) {
         user.save(usuario);
@@ -36,10 +36,10 @@ public class UsuarioResourceThymeleaf {
     }
 
 
-    // Listar todos os usuários
+    
     @GetMapping("/list")
     public ModelAndView listUsuarios() {
-        ModelAndView modelAndView = new ModelAndView("usuario-list"); // Nome da view
+        ModelAndView modelAndView = new ModelAndView("usuario-list"); 
         modelAndView.addObject("usuarios", user.findAll());
         modelAndView.addObject("title", "Lista de Usuários");
         return modelAndView;
@@ -48,12 +48,12 @@ public class UsuarioResourceThymeleaf {
 
 
 
-    // Editar usuário
+  
     @GetMapping("/edit/{id}")
     public ModelAndView editUsuario(@PathVariable("id") Long id) {
         Usuario usuario = user.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("Usuário inválido: " + id));
-        ModelAndView modelAndView = new ModelAndView("usuario-form"); // Nome da view
+        ModelAndView modelAndView = new ModelAndView("usuario-form"); 
         modelAndView.addObject("usuario", usuario);
         modelAndView.addObject("title", "Editar Usuário");
         return modelAndView;

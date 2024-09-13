@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import br.com.fiap.DirtyCode.model.Usuario;
 import br.com.fiap.DirtyCode.repository.UsuarioRepository;
-import lombok.extern.slf4j.Slf4j;
+
 
 @RestController
 @RequestMapping(value = "/api/user")
