@@ -25,7 +25,7 @@ import br.com.fiap.DirtyCode.repository.ProdutoRepository;
 import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 
-@RequestMapping(value = "produto")
+@RequestMapping(value = "api/produto")
 @RestController
 public class ProdutoResource {
 	
@@ -36,7 +36,7 @@ public class ProdutoResource {
 	public List<Produto> findAll(){
 		return repository.findAll();
 	}
-	
+
 	@PostMapping
 	@ResponseStatus(CREATED)
 	public Produto save(@RequestBody @Valid Produto produto) {
