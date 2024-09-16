@@ -33,8 +33,28 @@
 - Clonar o Repositório:
 ```bash
 git clone https://github.com/matheusCMSampaio/DirtyCode.git
+cd DirtyCode
 ```
-
+- Gerar o .jar
+```bash
+mvn clean package
+```
+- Login no Azure Container Registry
+```bash
+az acr login --name <nome-do-registry>
+```
+- Construa a imagem Docker usando o Dockerfile do projeto:
+```bash
+docker build -t <nome-do-registry>.azurecr.io/dirtycode:<versao> -f Dockerfile .
+```
+- Enviando para o ACR
+```bash
+docker push <nome-do-registry>.azurecr.io/dirtycode:<versao>
+```
+- Executando o .jar
+```bash
+java -jar target/nome-do-arquivo.jar
+```
 --------------------------------------------------
 
 
