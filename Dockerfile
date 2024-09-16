@@ -7,6 +7,9 @@ RUN adduser --no-create-home --disabled-password myuser
 # diretório para a aplicação
 WORKDIR /app
 
+# JAR para o diretório de trabalho
+COPY target/DirtyCode-0.0.1-SNAPSHOT.jar /app/DirtyCode-0.0.1-SNAPSHOT.jar
+
 # propriedade do diretório e arquivo para o novo usuário
 RUN chown myuser:myuser /app/DirtyCode-0.0.1-SNAPSHOT.jar
 
