@@ -3,9 +3,11 @@ package br.com.fiap.DirtyCode.controller;
 import java.util.List;
 import java.util.Optional;
 
+import br.com.fiap.DirtyCode.mensageria.ProdutorKafka;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -19,9 +21,15 @@ public class UsuarioResource {
 
     @Autowired
     UsuarioRepository repository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private ProdutorKafka produtorKafka;
+
 
     @PostMapping
     public ResponseEntity<String> save(@RequestBody Usuario usuario) {
+        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
         Usuario save = repository.save(usuario);
 //        log.info("Usuario cadastrado "+ usuario);
         return ResponseEntity.status(HttpStatus.CREATED).body("Usuário cadastrado com sucesso!");
@@ -64,20 +72,22 @@ public class UsuarioResource {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado.");
         }
     }
-    
+
     @PostMapping("/usuario")
     public ResponseEntity<?> findByEmail(@RequestBody Usuario user) {
         String email = user.getEmail();
         Usuario usuario = repository.findByEmail(email);
+
         if (usuario != null) {
-            if(user.getSenha().equals(usuario.getSenha())) {
-            	return ResponseEntity.ok(usuario);
-            }else {
-            	return ResponseEntity.status(404).body("Email ou senha incorreto!");
-			}
+            if (passwordEncoder.matches(user.getSenha(), usuario.getSenha())) {
+                return ResponseEntity.ok(usuario);
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Email ou senha incorretos!");
+            }
         } else {
-            return ResponseEntity.status(404).body("Usuário não encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado");
         }
     }
-    
+
+
 }

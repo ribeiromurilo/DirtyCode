@@ -1,14 +1,13 @@
 package br.com.fiap.DirtyCode.controller;
 
+import br.com.fiap.DirtyCode.mensageria.ProdutorKafka;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.fiap.DirtyCode.model.Usuario;
 import br.com.fiap.DirtyCode.repository.UsuarioRepository;
-
-import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping(value = "/user")
@@ -16,6 +15,11 @@ public class UsuarioResourceThymeleaf {
 
     @Autowired
     private UsuarioRepository user;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private ProdutorKafka produtorKafka;
+
 
    
     @GetMapping("/new")
@@ -26,11 +30,19 @@ public class UsuarioResourceThymeleaf {
         return modelAndView;
     }
 
+    @GetMapping("/login")
+    public ModelAndView login() {
+        return new ModelAndView("login");
+    }
 
-  
+
     @PostMapping("/save")
     public ModelAndView saveUsuario(@ModelAttribute Usuario usuario) {
+        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
         user.save(usuario);
+
+        String msg = "Usuário "+ usuario.getNome();
+        produtorKafka.enviarMensagem(msg);
         ModelAndView mv = new ModelAndView("redirect:/user/list");
         return mv;
     }
