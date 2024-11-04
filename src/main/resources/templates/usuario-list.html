@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${title}">Lista de Usuários</title>
+    <title th:text="#{user.list.title}">Lista de Usuários</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -78,18 +78,18 @@
 </head>
 <body>
     <header>
-        <h2 th:text="${title}">Lista de Usuários</h2>
+        <h2 th:text="#{user.list.title}">Lista de Usuários</h2>
     </header>
     <table>
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Email</th>
-                <th>CPF</th>
-                <th>Telefone</th>
-                <th>Senha</th>
-                <th>Ações</th>
+                <th th:text="#{user.id}">ID</th>
+                <th th:text="#{user.name}">Nome</th>
+                <th th:text="#{user.email}">Email</th>
+                <th th:text="#{user.cpf}">CPF</th>
+                <th th:text="#{user.phone}">Telefone</th>
+                <th th:text="#{user.password}">Senha</th>
+                <th th:text="#{user.actions}">Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -101,12 +101,12 @@
                 <td th:text="${usuario.telefone}"></td>
                 <td th:text="${usuario.senha}"></td>
                 <td>
-                    <a th:href="@{/user/edit/{id}(id=${usuario.id})}">Editar</a>
-                    <a th:href="@{/user/delete/{id}(id=${usuario.id})}" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+                    <a th:href="@{/user/edit/{id}(id=${usuario.id})}" th:text="#{user.edit}">Editar</a>
+                    <a th:href="@{/user/delete/{id}(id=${usuario.id})}" th:text="#{user.delete}" onclick="return confirm('#{user.delete.confirm}')">Excluir</a>
                 </td>
             </tr>
         </tbody>
     </table>
-    <a href="/user/new" class="add-button">Adicionar Novo Usuário</a>
+    <a href="/user/new" class="add-button" th:text="#{user.add}">Adicionar Novo Usuário</a>
 </body>
 </html>

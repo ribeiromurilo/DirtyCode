@@ -10,32 +10,34 @@ import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 import java.util.Locale;
+
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
     @Bean
-    ReloadableResourceBundleMessageSource messageSource() {
+    public ReloadableResourceBundleMessageSource messageSource() {
         ReloadableResourceBundleMessageSource ms = new ReloadableResourceBundleMessageSource();
-        ms.setBasename("classpath:mensagens");
-        //ms.setDefaultEncoding("UTF-8");
+        ms.setBasename("classpath:mensagens"); 
+        ms.setDefaultEncoding("UTF-8"); 
         return ms;
     }
 
     @Bean
-    LocaleResolver localeResolver(){
+    public LocaleResolver localeResolver() {
         CookieLocaleResolver lr = new CookieLocaleResolver();
-        lr.setDefaultLocale(Locale.forLanguageTag("pt"));
+        lr.setDefaultLocale(Locale.forLanguageTag("pt")); 
         return lr;
     }
+
     @Bean
-    LocaleChangeInterceptor localeChangeInterceptor() {
+    public LocaleChangeInterceptor localeChangeInterceptor() {
         LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
-        lci.setParamName("lang");
+        lci.setParamName("lang"); 
         return lci;
     }
 
     @Override
-    public void addInterceptors(InterceptorRegistry reg) {
-        reg.addInterceptor(localeChangeInterceptor());
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(localeChangeInterceptor());
     }
 }

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${title}">Adicionar Novo Usuário</title>
+    <title th:text="#{user.add.title}">Adicionar Novo Usuário</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -77,37 +77,43 @@
 </head>
 <body>
     <header>
-        <h2 th:text="${title}">Adicionar Novo Usuário</h2>
+        <h2 th:text="#{user.add.title}">Adicionar Novo Usuário</h2>
     </header>
     <form id="userForm" th:action="@{/user/save}" th:object="${usuario}" method="post">
-        <h3>Detalhes do Usuário</h3>
+        <h3 th:text="#{user.details.title}">Detalhes do Usuário</h3>
+        
         <div class="form-group">
-            <label for="nome">Nome</label>
-            <input type="text" id="nome" th:field="*{nome}" placeholder="Digite o nome" />
+            <label for="nome" th:text="#{user.name.label}">Nome</label>
+            <input type="text" id="nome" th:field="*{nome}" th:placeholder="#{user.name.placeholder}" />
             <div class="error" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">Erro</div>
         </div>
+        
         <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" th:field="*{email}" placeholder="Digite o email" />
+            <label for="email" th:text="#{user.email.label}">Email</label>
+            <input type="email" id="email" th:field="*{email}" th:placeholder="#{user.email.placeholder}" />
             <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Erro</div>
         </div>
+        
         <div class="form-group">
-            <label for="cpf">CPF</label>
-            <input type="text" id="cpf" th:field="*{cpf}" placeholder="Digite o CPF" />
+            <label for="cpf" th:text="#{user.cpf.label}">CPF</label>
+            <input type="text" id="cpf" th:field="*{cpf}" th:placeholder="#{user.cpf.placeholder}" />
             <div class="error" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}">Erro</div>
         </div>
+        
         <div class="form-group">
-            <label for="telefone">Telefone</label>
-            <input type="text" id="telefone" th:field="*{telefone}" placeholder="Digite o telefone" />
+            <label for="telefone" th:text="#{user.phone.label}">Telefone</label>
+            <input type="text" id="telefone" th:field="*{telefone}" th:placeholder="#{user.phone.placeholder}" />
             <div class="error" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}">Erro</div>
         </div>
+        
         <div class="form-group">
-            <label for="senha">Senha</label>
-            <input type="password" id="senha" th:field="*{senha}" placeholder="Digite a senha" />
-            <div class="error" id="senha-error">A senha deve ter pelo menos 8 caracteres.</div>
+            <label for="senha" th:text="#{user.password.label}">Senha</label>
+            <input type="password" id="senha" th:field="*{senha}" th:placeholder="#{user.password.placeholder}" />
+            <div class="error" id="senha-error" th:text="#{user.password.error}">A senha deve ter pelo menos 8 caracteres.</div>
         </div>
+        
         <div class="form-group">
-            <button type="submit">Salvar</button>
+            <button type="submit" th:text="#{user.save.button}">Salvar</button>
         </div>
     </form>
 
@@ -116,7 +122,6 @@
             var senha = document.getElementById('senha').value;
             var errorDiv = document.getElementById('senha-error');
 
-            
             if (senha.length < 8) {
                 errorDiv.style.display = 'block';
                 event.preventDefault(); 

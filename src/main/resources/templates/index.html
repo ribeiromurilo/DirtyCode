@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Índice de CRUD</title>
+    <title th:text="#{index.title}">Índice de CRUD</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,6 +20,20 @@
             text-align: center;
             padding: 20px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .flags {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .flags a {
+            margin-left: 10px;
+        }
+        .flags img {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
         }
         nav {
             margin-top: 20px;
@@ -52,13 +66,21 @@
 </head>
 <body>
     <header>
-        <h1>Índice de CRUD</h1>
+        <h1 th:text="#{index.header}">Índice de CRUD</h1>
+        <div class="flags">
+            <a href="/?lang=pt" title="Português">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Flag_of_Brazil.svg" alt="Português">
+            </a>
+            <a href="/?lang=en" title="English">
+                <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" alt="English">
+            </a>
+        </div>
     </header>
     <div class="container">
         <nav>
-            <a href="/user/list">Clientes</a>
-            <a href="/produto/list">Produtos</a>
-<!--            <a href="/pedido/list">Avaliações</a>-->
+            <a href="/user/list" th:text="#{index.clients}">Clientes</a>
+            <a href="/produto/list" th:text="#{index.products}">Produtos</a>
+            <a href="/pedido/list" th:text="#{index.reviews}" style="display: none;">Avaliações</a>
         </nav>
     </div>
 </body>
