@@ -3,7 +3,8 @@
 </div>
 
 <p align="center"> <a href="https://www.youtube.com/watch?v=HRahsNwfS4w" target="_blank">Vídeo PITCH de apresentação do projeto</a> </p>
-<p align="center"> <a href="https://youtu.be/IqHWoRw3c7U" target="_blank">Video do codigo rodando</a> </p>
+<p align="center"> <a href="https://youtu.be/bnGKTKaV4bQ?si=ZIkYqL6Fp2E1uPnl" target="_blank">Video do codigo rodando</a> </p>
+<p align="center"><a href="https://youtu.be/VaVm5ogDnw4" target="_blank"></a></p>
 
 <h3>Integrantes</h3>
 
